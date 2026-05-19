@@ -34,7 +34,7 @@ A RESTful Notes Application Backend built using Node.js, Express, MongoDB, JWT, 
 
 ## 📁 Project Structure
 
-```text
+
 notes-app-backend/
 │── server.js
 │── middleware/
