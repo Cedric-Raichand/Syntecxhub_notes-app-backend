@@ -21,6 +21,13 @@ router.post("/", authMiddleware, async (req, res) => {
 
     await note.save();
 
+    // ADD NOTE TO USER
+    const user = await User.findById(req.user.id);
+
+    user.notes.push(note._id);
+
+    await user.save();
+
     res.status(201).json(note);
 
   } catch (err) {
@@ -120,45 +127,41 @@ router.put("/:id", authMiddleware, async (req, res) => {
 
 
 // ARCHIVE NOTE
-router.put(
-  "/:id/archive",
-  authMiddleware,
-  async (req, res) => {
+router.put("/:id/archive", authMiddleware, async (req, res) => {
 
-    try {
+  try {
 
-      const note = await Note.findOneAndUpdate(
-        {
-          _id: req.params.id,
-          user: req.user.id
-        },
-        {
-          archived: true
-        },
-        { new: true }
-      );
+    const note = await Note.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        user: req.user.id
+      },
+      {
+        archived: true
+      },
+      { new: true }
+    );
 
-      if (!note) {
-        return res.status(404).json({
-          message: "Note not found"
-        });
-      }
-
-      res.json({
-        message: "Note archived",
-        note
+    if (!note) {
+      return res.status(404).json({
+        message: "Note not found"
       });
-
-    } catch (err) {
-
-      res.status(500).json({
-        error: err.message
-      });
-
     }
 
+    res.json({
+      message: "Note archived successfully",
+      note
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      error: err.message
+    });
+
   }
-);
+
+});
 
 
 // DELETE NOTE
@@ -193,28 +196,24 @@ router.delete("/:id", authMiddleware, async (req, res) => {
 
 
 // GET USER WITH NOTES (POPULATE)
-router.get(
-  "/user/details",
-  authMiddleware,
-  async (req, res) => {
+router.get("/user/details", authMiddleware, async (req, res) => {
 
-    try {
+  try {
 
-      const user = await User.findById(
-        req.user.id
-      ).populate("notes");
+    const user = await User.findById(
+      req.user.id
+    ).populate("notes");
 
-      res.json(user);
+    res.json(user);
 
-    } catch (err) {
+  } catch (err) {
 
-      res.status(500).json({
-        error: err.message
-      });
-
-    }
+    res.status(500).json({
+      error: err.message
+    });
 
   }
-);
+
+});
 
 module.exports = router;
