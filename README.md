@@ -34,7 +34,7 @@ A RESTful Notes Application Backend built using Node.js, Express, MongoDB, JWT, 
 
 ## 📁 Project Structure
 
-
+```text
 notes-app-backend/
 │── server.js
 │── middleware/
@@ -47,106 +47,6 @@ notes-app-backend/
 │   └── noteRoutes.js
 │── .env
 │── package.json
-```
-
----
-
-## ⚙️ Installation
-
-### 1. Install dependencies
-
-```bash
-npm install
-```
-
----
-
-### 2. Create `.env`
-
-```env
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=mysecretkey
-PORT=5000
-```
-
----
-
-### 3. Run the server
-
-```bash
-node server.js
-```
-
----
-
-## 🔐 Authentication Endpoints
-
-### Register User
-
-```http
-POST /api/auth/register
-```
-
-### Login User
-
-```http
-POST /api/auth/login
-```
-
----
-
-## 📝 Notes Endpoints
-
-### Create Note
-
-```http
-POST /api/notes
-```
-
-### Get All Notes
-
-```http
-GET /api/notes
-```
-
-### Get Single Note
-
-```http
-GET /api/notes/:id
-```
-
-### Update Note
-
-```http
-PUT /api/notes/:id
-```
-
-### Archive Note
-
-```http
-PUT /api/notes/:id/archive
-```
-
-### Delete Note
-
-```http
-DELETE /api/notes/:id
-```
-
-### Get User with Notes (Populate)
-
-```http
-GET /api/notes/user/details
-```
-
----
-
-## 🔒 Protected Routes
-
-For all `/api/notes/*` routes:
-
-```text
-Authorization: Bearer YOUR_TOKEN
 ```
 
 ---
